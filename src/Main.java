@@ -1,10 +1,17 @@
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
 import java.io.BufferedReader;
+import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Objects;
 import java.util.Scanner;
+
 
 public class Main {
 
@@ -47,6 +54,22 @@ public class Main {
         }
 
         System.out.println(resultJson);
+        System.out.println();
 
+        JsonParser parser = new JsonParser();
+        JsonObject mainObject = parser.parse(resultJson).getAsJsonObject();
+        JsonObject valuteObj = mainObject.getAsJsonObject("Valute");
+        System.out.println(valuteObj);
+        System.out.println();
+        System.out.println(valuteObj.getAsJsonObject("AUD"));
+      //  JsonArray Valute = mainObject.getAsJsonArray("Valute");
+//        for (JsonElement valute : Valute) {
+//            JsonObject userObject = valute.getAsJsonObject();
+//            System.out.println(userObject.get("EUR"));
+//            if (userObject.get("p_id").getAsInt() == 132) {
+//                System.out.println(userObject.get("p_name"));
+//                return;
+//            }
+//        }
     }
 }

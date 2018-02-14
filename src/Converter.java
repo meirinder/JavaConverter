@@ -7,6 +7,7 @@ public class Converter {
     private double result;
     private Map<String,Item> itemStore;
 
+
     public Converter(String fromValute, String toValute, double count) {
         this.fromValute = fromValute;
         this.toValute = toValute;
