@@ -33,10 +33,16 @@ public class Converter {
     }
 
     private void setItemStore(){
-
+        ServerConnector r = new ServerConnector("https://www.cbr-xml-daily.ru/daily_json.js");
+        Parser parser = new Parser(r.getResultJson());
+        itemStore = parser.fillItemStore();
     }
 
     private void convertCurrency(){
-        result = count * 60;
+        result = count;
+        result *= itemStore.get(fromValute).value;
+        result /= itemStore.get(fromValute).nominal;
+        result *= itemStore.get(toValute).nominal;
+        result /= itemStore.get(toValute).value;
     }
 }
