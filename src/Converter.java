@@ -43,8 +43,21 @@ public class Converter {
         this.count = count;
     }
 
-    public double getResult(){
-        convertCurrency();
+    public double getResult(int bank){
+
+        switch (bank){
+            case 1:{
+                convertCurrencyCBR();
+                break;
+            }
+            case 2:{
+                convertCurrencyECB();
+
+                break;
+            }
+            default:
+                convertCurrencyCBR();
+        }
         return result;
     }
 
@@ -60,13 +73,17 @@ public class Converter {
         itemStore = xmlParser.getResultMap();
     }
 
-    private void convertCurrency(){
+    private void convertCurrencyCBR(){
         result = count;
         result *= itemStore.get(fromValute).value;
         result /= itemStore.get(fromValute).nominal;
         result *= itemStore.get(toValute).nominal;
         result /= itemStore.get(toValute).value;
+    }
 
-
+    private void convertCurrencyECB(){
+        result = count;
+        double tmp = itemStore.get(toValute).value/itemStore.get(fromValute).value;
+        result = count*tmp;
     }
 }
