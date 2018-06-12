@@ -8,7 +8,6 @@ public class Converter {
     public Map<String,Item> itemStore;
     private  String ecbServ = "http://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml";
     private  String cbrServ = "https://www.cbr-xml-daily.ru/daily_json.js";
-    private  String yahooServ = "https://finance.yahoo.com/webservice/v1/symbols/allcurrencies/quote?format=json";
 
     public Converter(String fromValute, String toValute, double count,int nubmerOfBank) {
         this.fromValute = fromValute;

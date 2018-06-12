@@ -104,11 +104,6 @@ public class SimpleGUI extends JFrame {
             Converter converter = new Converter(from,to,count,numberOfBank);
             String message = "";
             message += converter.getResult(numberOfBank);
-           // message += "Text is " + input.getText() + "\n";
-//            message += (radio1.isSelected()?"Radio #1":"Radio #2")
-//                    + " is selected\n";
-//            message += "CheckBox is " + ((check.isSelected())
-//                    ?"checked":"unchecked");
             JOptionPane.showMessageDialog(null,
                     message,
                     "Output",
