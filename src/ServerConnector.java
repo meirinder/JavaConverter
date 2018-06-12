@@ -6,7 +6,7 @@ import java.net.URL;
 
 public class ServerConnector {
     private String adress;
-    private String resultJson;
+    private String resultJsonOrXML;
 
     public ServerConnector(String adress) {
         this.adress = adress;
@@ -33,15 +33,16 @@ public class ServerConnector {
                 buffer.append(line);
             }
 
-            resultJson = buffer.toString();
+            resultJsonOrXML = buffer.toString();
+           // System.out.println(resultJsonOrXML);
 
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public String getResultJson(){
-        return resultJson;
+    public String getResultJsonOrXML(){
+        return resultJsonOrXML;
     }
 
 }

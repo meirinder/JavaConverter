@@ -3,10 +3,21 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+
+
 public class SimpleGUI extends JFrame {
-    private JButton button = new JButton("Calculate");
+    private String[] allCharCodes = new String[]{"AUD", "AZN", "GBP", "AMD", "BYN", "BGN",
+            "BRL", "HUF", "HKD", "DKK", "USD", "EUR", "INR",
+            "KZT", "CAD", "KGS", "CNY", "MDL", "NOK", "PLN",
+            "RON", "XDR", "SGD", "TJS", "TRY", "TMT", "UZS",
+            "UAH", "CZK", "SEK", "CHF", "ZAR", "KRW", "JPY"};
+
+    private String  help = "";
+
+    private JButton calculateButton = new JButton("Calculate");
+    private JButton helpButton = new JButton("Help");
     private JTextField fromValuteField = new JTextField("USD", 5);
-    private JTextField toValuteField = new JTextField("RUR", 5);
+    private JTextField toValuteField = new JTextField("RUB", 5);
     private JTextField countField = new JTextField("100", 5);
     private JLabel fromValuteLabel = new JLabel("From:");
     private JLabel voidLabel1 = new JLabel("");
@@ -36,8 +47,29 @@ public class SimpleGUI extends JFrame {
 
 
         ButtonGroup group = new ButtonGroup();
-        button.addActionListener(new ButtonEventListener());
-        container.add(button);
+        helpButton.addActionListener(new ButtonHelpListner());
+        container.add(helpButton);
+        calculateButton.addActionListener(new ButtonEventListener());
+        container.add(calculateButton);
+    }
+
+    class ButtonHelpListner implements  ActionListener{
+        public void actionPerformed(ActionEvent e){
+            Converter conv = new Converter("RUB","RUB",0,1);
+            for (String allCharCode : allCharCodes) {
+                String charCode = conv.itemStore.get(allCharCode).charCode;
+                String name = conv.itemStore.get(allCharCode).name;
+                help += charCode;
+                help += " = ";
+                help += name;
+                help += "\n";
+            }
+            String message = help;
+            JOptionPane.showMessageDialog(null,
+                    message,
+                    "Output",
+                    JOptionPane.PLAIN_MESSAGE);
+        }
     }
 
     class ButtonEventListener implements ActionListener {
@@ -45,7 +77,7 @@ public class SimpleGUI extends JFrame {
             String from = fromValuteField.getText();
             String to = toValuteField.getText();
             int count = Integer.parseInt(countField.getText());
-            Converter converter = new Converter(from,to,count);
+            Converter converter = new Converter(from,to,count,1);
             String message = "";
             message += converter.getResult();
            // message += "Text is " + input.getText() + "\n";

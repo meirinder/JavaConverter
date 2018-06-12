@@ -17,4 +17,38 @@ public class Item {
         this.previous = previous;
         this.nominal = nominal;
     }
+
+    public Item(String charCode, double value) {
+        this.charCode = charCode;
+        this.value = value;
+        this.nominal = 1;
+    }
+
+    public String getCharCode() {
+        return charCode;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public int getNumCode() {
+        return numCode;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public double getValue() {
+        return value;
+    }
+
+    public int getPrevious() {
+        return previous;
+    }
+
+    public double getNominal() {
+        return nominal;
+    }
 }

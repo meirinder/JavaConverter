@@ -20,9 +20,9 @@ public class Parser {
 
     public Map<String,Item> fillItemStore(){
         Map<String,Item> resultMap = new HashMap<String,Item>();
-        Item RURinstanse = new Item("RUR","R00000",643,"Российский рубль",
+        Item RURinstanse = new Item("RUB","R00000",643,"Российский рубль",
                 1,1,1);
-        resultMap.put("RUR",RURinstanse);
+        resultMap.put("RUB",RURinstanse);
         JsonParser parser = new JsonParser();
         JsonObject mainObject = parser.parse(JSON).getAsJsonObject();
         JsonObject valuteObject = mainObject.getAsJsonObject("Valute");

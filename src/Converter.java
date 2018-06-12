@@ -5,14 +5,30 @@ public class Converter {
     private String toValute;
     private double count;
     private double result;
-    private Map<String,Item> itemStore;
+    public Map<String,Item> itemStore;
+    private  String ecbServ = "http://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml";
+    private  String cbrServ = "https://www.cbr-xml-daily.ru/daily_json.js";
+    private  String yahooServ = "https://finance.yahoo.com/webservice/v1/symbols/allcurrencies/quote?format=json";
 
-
-    public Converter(String fromValute, String toValute, double count) {
+    public Converter(String fromValute, String toValute, double count,int nubmerOfBank) {
         this.fromValute = fromValute;
         this.toValute = toValute;
         this.count = count;
-        setItemStore();
+        switch (nubmerOfBank){
+            case 1:
+            {
+                setJSONItemStore();
+                break;
+            }
+            case 2:
+            {
+                setXMLItemStore();
+                break;
+            }
+            default:
+                setJSONItemStore();
+
+        }
     }
 
     public void setFromValute(String valute){
@@ -32,10 +48,16 @@ public class Converter {
         return result;
     }
 
-    private void setItemStore(){
-        ServerConnector r = new ServerConnector("https://www.cbr-xml-daily.ru/daily_json.js");
-        Parser parser = new Parser(r.getResultJson());
+    private void setJSONItemStore(){
+        ServerConnector r = new ServerConnector(cbrServ);
+        Parser parser = new Parser(r.getResultJsonOrXML());
         itemStore = parser.fillItemStore();
+    }
+
+
+    private void setXMLItemStore(){
+        XMLParser xmlParser = new XMLParser(ecbServ);
+        itemStore = xmlParser.getResultMap();
     }
 
     private void convertCurrency(){
@@ -44,5 +66,7 @@ public class Converter {
         result /= itemStore.get(fromValute).nominal;
         result *= itemStore.get(toValute).nominal;
         result /= itemStore.get(toValute).value;
+
+
     }
 }
